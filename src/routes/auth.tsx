@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Feather, Loader2 } from "lucide-react";
+import { ArrowLeft, Feather, Loader2, MailWarning } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -45,6 +45,22 @@ function AuthPage() {
     if (!loading && user) navigate({ to: "/library" });
   }, [user, loading, navigate]);
 
+  const [lastEmail, setLastEmail] = useState("");
+  const [needsConfirm, setNeedsConfirm] = useState(false);
+
+  const friendlyError = (err: unknown): string => {
+    const msg = err instanceof Error ? err.message : "";
+    if (/email not confirmed/i.test(msg))
+      return "Your email is not confirmed yet. Open the confirmation email we sent and click the link, then log in.";
+    if (/invalid login credentials/i.test(msg))
+      return "Wrong email or password. Please check and try again.";
+    if (/weak|easy to guess/i.test(msg))
+      return "That password is too easy to guess. Please choose a stronger one.";
+    if (/already registered|already been registered/i.test(msg))
+      return "This email already has an account. Try logging in instead.";
+    return msg || "Authentication failed. Please try again.";
+  };
+
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -53,6 +69,8 @@ function AuthPage() {
     const fullName = String(form.get("name") ?? "");
     const university = String(form.get("university") ?? "");
     setBusy(true);
+    setNeedsConfirm(false);
+    setLastEmail(email);
     try {
       if (isSignup) {
         const { error } = await supabase.auth.signUp({
@@ -64,7 +82,8 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Account created. Check your inbox if confirmation is required.");
+        setNeedsConfirm(true);
+        toast.success("Account created! Check your inbox and click the confirmation link to activate it.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -72,10 +91,25 @@ function AuthPage() {
         navigate({ to: "/library" });
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Authentication failed.");
+      const msg = err instanceof Error ? err.message : "";
+      if (/email not confirmed/i.test(msg)) setNeedsConfirm(true);
+      toast.error(friendlyError(err));
     } finally {
       setBusy(false);
     }
+  };
+
+  const resendConfirmation = async () => {
+    if (!lastEmail) return;
+    setBusy(true);
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: lastEmail,
+      options: { emailRedirectTo: `${window.location.origin}/library` },
+    });
+    setBusy(false);
+    if (error) toast.error(friendlyError(error));
+    else toast.success("Confirmation email sent again. Check your inbox and spam folder.");
   };
 
   const google = async () => {
@@ -103,10 +137,18 @@ function AuthPage() {
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-24">
         <div className="surface-card w-full max-w-md animate-rise p-8">
-          <Link to="/" className="flex items-center gap-2 text-primary">
-            <Feather className="h-5 w-5" />
-            <span className="font-display text-lg">Scriptorium</span>
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-2 text-primary">
+              <Feather className="h-5 w-5" />
+              <span className="font-display text-lg">Easy Assign</span>
+            </Link>
+            <Link
+              to="/"
+              className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to home
+            </Link>
+          </div>
 
           <h1 className="mt-6 text-4xl">{isSignup ? "Create account" : "Welcome back"}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -174,6 +216,28 @@ function AuthPage() {
               {isSignup ? "Create account" : "Log in"}
             </Button>
           </form>
+
+          {needsConfirm && (
+            <div className="mt-4 animate-rise rounded-xl border border-primary/30 bg-primary/10 p-4 text-sm">
+              <div className="flex items-start gap-2">
+                <MailWarning className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <p className="text-muted-foreground">
+                  We sent a confirmation link to <span className="font-medium text-foreground">{lastEmail}</span>.
+                  Click it to activate your account, then log in.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={busy || !lastEmail}
+                onClick={resendConfirmation}
+                className="mt-3 w-full rounded-full"
+              >
+                Resend confirmation email
+              </Button>
+            </div>
+          )}
 
           <button
             onClick={() => routeNavigate({ search: { mode: isSignup ? "login" : "signup" } })}

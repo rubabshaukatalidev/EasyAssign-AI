@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Preserve the Vercel rewrite for Lovable asset paths when changing deployment configuration, because asset pointers are root-relative and external hosts do not serve them automatically.

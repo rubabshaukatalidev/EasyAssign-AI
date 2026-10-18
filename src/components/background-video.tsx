@@ -30,6 +30,13 @@ export function BackgroundVideo({
 
   useEffect(() => {
     const el = ref.current;
+    if (!el || !active) return;
+    el.load();
+    el.play().catch(() => {});
+  }, [active, src]);
+
+  useEffect(() => {
+    const el = ref.current;
     if (!el) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

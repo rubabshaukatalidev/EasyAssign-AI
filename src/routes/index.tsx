@@ -16,11 +16,13 @@ import { SiteNav } from "@/components/site-nav";
 import { Generator } from "@/components/generator";
 import { useReveal } from "@/hooks/use-reveal";
 import { CATEGORIES, FONT_STYLES, LANGUAGES, TEMPLATES } from "@/lib/assignment";
-import texture from "@/assets/texture.jpg";
+import posterAsset from "@/assets/video-poster.jpg.asset.json";
 import typingVideo from "@/assets/typing-loop.mp4.asset.json";
 import templatesVideo from "@/assets/templates-loop.mp4.asset.json";
 import ctaVideo from "@/assets/cta-loop.mp4.asset.json";
 import { BackgroundVideo } from "@/components/background-video";
+
+const texture = posterAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({

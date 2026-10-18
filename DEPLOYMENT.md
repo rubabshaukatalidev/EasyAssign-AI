@@ -61,8 +61,15 @@ Add the env vars as Worker secrets: `npx wrangler secret put LOVABLE_API_KEY` et
 Import the GitHub repo, set `NITRO_PRESET=vercel`, keep the default build command,
 and add the env vars. Vercel detects the Nitro output automatically.
 
+The root `vercel.json` forwards `/__l5e/assets-v1/*` requests to this project's
+Lovable asset-serving origin. These paths are not files in the GitHub repository;
+without the rewrite Vercel returns missing-file responses for the videos and posters.
+After syncing these changes to GitHub, redeploy the latest commit in Vercel.
+Keep this Lovable project available: the rewrite depends on its media service.
+
 ## Notes
 
-- Videos and images are served from the Lovable CDN (`/__l5e/assets-v1/...`), so they
-  keep working on any host without extra storage setup.
+- Videos and posters use Lovable media paths (`/__l5e/assets-v1/...`). External hosts
+  must forward those paths to Lovable; `vercel.json` configures this for Vercel.
+  Other hosts need an equivalent proxy rule or media moved to their own storage.
 - The database, auth and AI generation stay on Lovable Cloud regardless of host.

@@ -137,10 +137,18 @@ function AuthPage() {
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-24">
         <div className="surface-card w-full max-w-md animate-rise p-8">
-          <Link to="/" className="flex items-center gap-2 text-primary">
-            <Feather className="h-5 w-5" />
-            <span className="font-display text-lg">Scriptorium</span>
-          </Link>
+          <div className="flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-2 text-primary">
+              <Feather className="h-5 w-5" />
+              <span className="font-display text-lg">Easy Assign</span>
+            </Link>
+            <Link
+              to="/"
+              className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back to home
+            </Link>
+          </div>
 
           <h1 className="mt-6 text-4xl">{isSignup ? "Create account" : "Welcome back"}</h1>
           <p className="mt-2 text-sm text-muted-foreground">

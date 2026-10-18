@@ -45,6 +45,22 @@ function AuthPage() {
     if (!loading && user) navigate({ to: "/library" });
   }, [user, loading, navigate]);
 
+  const [lastEmail, setLastEmail] = useState("");
+  const [needsConfirm, setNeedsConfirm] = useState(false);
+
+  const friendlyError = (err: unknown): string => {
+    const msg = err instanceof Error ? err.message : "";
+    if (/email not confirmed/i.test(msg))
+      return "Your email is not confirmed yet. Open the confirmation email we sent and click the link, then log in.";
+    if (/invalid login credentials/i.test(msg))
+      return "Wrong email or password. Please check and try again.";
+    if (/weak|easy to guess/i.test(msg))
+      return "That password is too easy to guess. Please choose a stronger one.";
+    if (/already registered|already been registered/i.test(msg))
+      return "This email already has an account. Try logging in instead.";
+    return msg || "Authentication failed. Please try again.";
+  };
+
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -53,6 +69,8 @@ function AuthPage() {
     const fullName = String(form.get("name") ?? "");
     const university = String(form.get("university") ?? "");
     setBusy(true);
+    setNeedsConfirm(false);
+    setLastEmail(email);
     try {
       if (isSignup) {
         const { error } = await supabase.auth.signUp({
@@ -64,7 +82,8 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        toast.success("Account created. Check your inbox if confirmation is required.");
+        setNeedsConfirm(true);
+        toast.success("Account created! Check your inbox and click the confirmation link to activate it.");
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -72,10 +91,25 @@ function AuthPage() {
         navigate({ to: "/library" });
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Authentication failed.");
+      const msg = err instanceof Error ? err.message : "";
+      if (/email not confirmed/i.test(msg)) setNeedsConfirm(true);
+      toast.error(friendlyError(err));
     } finally {
       setBusy(false);
     }
+  };
+
+  const resendConfirmation = async () => {
+    if (!lastEmail) return;
+    setBusy(true);
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: lastEmail,
+      options: { emailRedirectTo: `${window.location.origin}/library` },
+    });
+    setBusy(false);
+    if (error) toast.error(friendlyError(error));
+    else toast.success("Confirmation email sent again. Check your inbox and spam folder.");
   };
 
   const google = async () => {

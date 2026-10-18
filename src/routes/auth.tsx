@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/use-auth";
-import hero from "@/assets/texture.jpg";
+import posterAsset from "@/assets/video-poster.jpg.asset.json";
 
 type Search = { mode?: "login" | "signup" };
 
@@ -93,7 +93,7 @@ function AuthPage() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       <img
-        src={hero}
+        src={posterAsset.url}
         alt=""
         width={1600}
         height={1008}

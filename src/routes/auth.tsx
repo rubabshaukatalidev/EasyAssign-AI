@@ -217,6 +217,28 @@ function AuthPage() {
             </Button>
           </form>
 
+          {needsConfirm && (
+            <div className="mt-4 animate-rise rounded-xl border border-primary/30 bg-primary/10 p-4 text-sm">
+              <div className="flex items-start gap-2">
+                <MailWarning className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                <p className="text-muted-foreground">
+                  We sent a confirmation link to <span className="font-medium text-foreground">{lastEmail}</span>.
+                  Click it to activate your account, then log in.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={busy || !lastEmail}
+                onClick={resendConfirmation}
+                className="mt-3 w-full rounded-full"
+              >
+                Resend confirmation email
+              </Button>
+            </div>
+          )}
+
           <button
             onClick={() => routeNavigate({ search: { mode: isSignup ? "login" : "signup" } })}
             className="mt-6 w-full text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"

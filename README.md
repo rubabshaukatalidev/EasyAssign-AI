@@ -1,132 +1,160 @@
-⚡ AI Assigmnent Generator
+# 🎓 AI Assignment Generator
 
-AI-Powered Assignment & Educational Content Generator
+An AI-powered web app that helps students generate well-structured, high-quality assignments in seconds. Enter your topic, choose your preferences, and get a ready-to-use draft that you can review, edit, and download.
 
-🌐 Project Links
+🔗 **Live Demo:** [Open the app](https://retrogenius-studio-4x2pgyoig-rubabshaukat253-6494s-projects.vercel.app/)
 
-🚀 Live Deployment: retrogenius-studio.vercel.app
+---
 
-📂 Source Code: github.com/rubabshaukatalidev/retrogenius-studio
+## ✨ Features
 
-📌 Overview
+- 📝 **Instant Assignment Generation** – Create a complete assignment from just a topic or question.
+- 🎯 **Customizable Output** – Choose subject, length, academic level, and tone.
+- 🧱 **Structured Format** – Introduction, main body, and conclusion organized automatically.
+- ✏️ **Editable Results** – Review and modify the generated content before using it.
+- 📋 **Copy & Download** – Easily copy the text or save it for later.
+- 📱 **Responsive Design** – Works smoothly on mobile, tablet, and desktop.
+- ⚡ **Fast & Lightweight** – Deployed on Vercel for quick load times.
 
-RetroGenius Studio is an intelligent educational web application designed to eliminate friction in creating structured academic content. Combining a unique retro-modern aesthetic with advanced AI prompt engineering, it enables students, researchers, and educators to instantly transform raw topics into comprehensive study guides, assignments, and research outlines.
+---
 
-🎯 Problem Statement & Impact
+## 🖼️ Screenshots
 
-🚨 The Problem
+> Add screenshots of your app here.
 
-Time-Consuming Drafting: Manual creation of customized assignments and study guides takes hours.
+```
+/screenshots/home.png
+/screenshots/result.png
+```
 
-One-Size-Fits-All Content: Traditional study resources lack flexibility for different academic levels (High School vs. University).
+---
 
-Inconsistent Structural Quality: Students frequently struggle to structure academic papers with clear sections, terminology, and citation frameworks.
+## 🛠️ Tech Stack
 
-💡 The Solution
+| Layer       | Technology                      |
+|-------------|---------------------------------|
+| Frontend    | HTML, CSS, JavaScript / React   |
+| AI Engine   | AI language model API           |
+| Hosting     | Vercel                          |
 
-Instant Academic Workflows: Generate complete assignment units in seconds.
+> Update this table to match the exact tools used in your project.
 
-Tailored Complexity: Adapt output depth based on target grade level and word count.
+---
 
-Structured Markdown Output: Built-in section breaks, key vocabulary lists, and review questions.
+## 🚀 Getting Started
 
-1-Click Export: Fast copy-to-clipboard and file download options.
+### Prerequisites
 
-🛠️ Tech Stack
+- [Node.js](https://nodejs.org/) (v18 or later)
+- npm or yarn
+- An API key for your AI provider
 
-Domain
+### Installation
 
-Technology / Tool
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-username/your-repo-name.git
 
-Frontend Framework
+# 2. Move into the project folder
+cd your-repo-name
 
-Next.js / React.js
-
-Styling & Design
-
-Tailwind CSS (Retro-Modern Interface)
-
-AI Integration
-
-Google Gemini API / OpenAI API
-
-Icons & Assets
-
-Lucide Icons
-
-Deployment
-
-Vercel
-
-⚡ Key Features
-
-📝 Custom Assignment Engine: Generates structured educational content dynamically based on topic inputs.
-
-🎓 Multi-Level Academic Scaling: Supports custom difficulty levels ranging from Secondary School to Postgraduate Research.
-
-🎨 Retro-Modern Dashboard: High-contrast, clean UI built for speed and accessibility across all screen sizes.
-
-📑 Structured Output Schema: Enforces standard academic formatting (Title, Objectives, Detailed Body, Key Terms, Summary, & Questions).
-
-📥 Instant Export: Integrated 1-click text/markdown copying and direct file download utilities.
-
-🤖 AI Methodology & System Logic
-
-RetroGenius Studio uses structured system instructions to ensure deterministic and accurate educational outputs:
-
-Input Contextualization: Combines user subject, depth tier, and tone into an optimized prompt payload.
-
-Schema Enforcement: Enforces clear structural sections for every response:
-
-Title & Core Objectives
-
-In-Depth Explanation / Body
-
-Key Vocabulary & Definitions
-
-Self-Assessment / Review Questions
-
-Pedagogical Alignment: Focuses on active synthesis and critical thinking rather than generic text generation.
-
-💻 Local Installation & Setup Guide
-
-Run the project locally on your machine in 5 simple steps:
-
-1. Clone the Repository
-
-git clone https://github.com/rubabshaukatalidev/retrogenius-studio.git
-
-
-2. Navigate to Project Directory
-
-cd retrogenius-studio
-
-
-3. Install Project Dependencies
-
+# 3. Install dependencies
 npm install
+```
 
+### Environment Variables
 
-4. Configure Environment Variables
+Create a `.env` file in the root directory:
 
-Create a .env.local file in the root directory and add your API key:
+```env
+API_KEY=your_api_key_here
+```
 
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+> ⚠️ Never commit your `.env` file or share your API key publicly.
 
+### Run Locally
 
-5. Launch the Development Server
-
+```bash
 npm run dev
+```
 
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Open http://localhost:3000 in your browser to view the app.
+### Build for Production
 
-👩‍💻 Author & Team Information
+```bash
+npm run build
+npm start
+```
 
-Rubab Shaukat Ali (@rubabshaukatalidev) — Solo Developer
+---
 
-Responsibilities: Architecture, Retro UI/UX design, Next.js frontend development, Gemini API integration, prompt engineering, and Vercel deployment.
+## 📖 How to Use
 
-📄 License
+1. Open the app.
+2. Enter your **assignment topic** or question.
+3. Select the subject, length, and academic level.
+4. Click **Generate**.
+5. Review, edit, and copy or download your assignment.
 
-This project is open source and available under the MIT License.
+---
+
+## 📁 Project Structure
+
+```
+├── public/          # Static assets
+├── src/             # Source code
+│   ├── components/  # UI components
+│   ├── pages/       # App pages
+│   └── styles/      # Stylesheets
+├── .env             # Environment variables (not committed)
+├── package.json
+└── README.md
+```
+
+> Adjust this to match your actual folder structure.
+
+---
+
+## 🌐 Deployment
+
+This project is deployed on **Vercel**.
+
+1. Push your code to GitHub.
+2. Import the repository in [Vercel](https://vercel.com/).
+3. Add your environment variables in the project settings.
+4. Click **Deploy**.
+
+---
+
+## ⚠️ Disclaimer
+
+This tool is meant to assist with learning, brainstorming, and drafting. Always review and verify the generated content, add your own understanding, and follow your institution's academic integrity policies.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m "Add your feature"`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 👩‍💻 Author
+
+Made with ❤️ by **Rubab Shaukat**
+
+---
+
+⭐ If you like this project, don't forget to give it a star!

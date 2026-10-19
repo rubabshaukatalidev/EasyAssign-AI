@@ -1,160 +1,162 @@
-# 🎓 AI Assignment Generator
+# 🎓 Easy Assign
 
-An AI-powered web app that helps students generate well-structured, high-quality assignments in seconds. Enter your topic, choose your preferences, and get a ready-to-use draft that you can review, edit, and download.
+**Easy Assign** is an AI-powered assignment generator for university students. Type a topic, pick a template, length, tone and language — and get a *complete* assignment: abstract, multi-paragraph sections with real argument and evidence, and a reference list. Then save it to your account or download it as a formatted PDF.
 
-🔗 **Live Demo:** [Open the app](https://retrogenius-studio-4x2pgyoig-rubabshaukat253-6494s-projects.vercel.app/)
+This is not a heading generator. It writes the full document the way a real assignment is written — paragraphs, not bullet points.
+
+🔗 **Live demo:** https://retrogenius-studio-4x2pgyoig-rubabshaukat253-6494s-projects.vercel.app/
 
 ---
 
 ## ✨ Features
 
-- 📝 **Instant Assignment Generation** – Create a complete assignment from just a topic or question.
-- 🎯 **Customizable Output** – Choose subject, length, academic level, and tone.
-- 🧱 **Structured Format** – Introduction, main body, and conclusion organized automatically.
-- ✏️ **Editable Results** – Review and modify the generated content before using it.
-- 📋 **Copy & Download** – Easily copy the text or save it for later.
-- 📱 **Responsive Design** – Works smoothly on mobile, tablet, and desktop.
-- ⚡ **Fast & Lightweight** – Deployed on Vercel for quick load times.
+| | |
+|---|---|
+| 🤖 **Real AI writing** | Full academic prose — abstract, several titled sections with multi-paragraph arguments, scholars and theories cited in the text, and a reference list. A typical run writes 1,000–1,300 words. |
+| 🗂️ **8 categories** | Essay, Research Paper, Lab Report, Case Study, Book Review, Presentation Outline, Coding Task, Reflection Journal. |
+| 🌍 **8 languages** | English, Urdu, Spanish, French, German, Arabic, Turkish, Chinese. |
+| 🎙️ **5 tones** | Academic, Formal, Conversational, Persuasive, Analytical. |
+| 🎨 **6 templates** | Classic Manuscript (Serif · MLA), The Gazette (two-column editorial with drop caps), Lab Ledger (Grid · APA), Typewriter Draft (Mono), Modern Folio (Sans · Chicago), Thesis Bound (Serif · Harvard). Each one changes both the on-screen preview **and** the exported PDF. |
+| 🔤 **5 typefaces** | DM Serif Display, Playfair Display, Libre Baskerville, Karla, JetBrains Mono — switchable live. |
+| 📏 **Length control** | 1–20 pages (~300 words per page), with a live word estimate. |
+| ✅ **Options** | Include references on/off, outline-only mode. |
+| 👤 **Real accounts** | Sign up with email + password or Google, email confirmation, resend-confirmation, "back to home" navigation, friendly error messages. |
+| 📚 **My library** | Every assignment you generate is stored to your account — open, re-read, or delete it any time. |
+| 📄 **PDF download** | One click exports the same document with bold headings, the template's typography and correct sizing. Also: copy to clipboard. |
+| 🎬 **Motion design** | Background videos, Ken Burns zooms, scroll reveals, animated transitions — and it stays smooth on mobile. |
+| 📱 **Fully responsive** | Works properly on phone, tablet and desktop. |
 
 ---
 
 ## 🖼️ Screenshots
 
-> Add screenshots of your app here.
+| Hero | Generator |
+|:---:|:---:|
+| ![Hero](public/screenshots/01-hero.png) | ![Generator](public/screenshots/02-generator.png) |
 
-```
-/screenshots/home.png
-/screenshots/result.png
-```
-
----
-
-## 🛠️ Tech Stack
-
-| Layer       | Technology                      |
-|-------------|---------------------------------|
-| Frontend    | HTML, CSS, JavaScript / React   |
-| AI Engine   | AI language model API           |
-| Hosting     | Vercel                          |
-
-> Update this table to match the exact tools used in your project.
+| Generated assignment | Sign in |
+|:---:|:---:|
+| ![Result](public/screenshots/03-result.png) | ![Auth](public/screenshots/04-auth.png) |
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Tech stack
 
-### Prerequisites
+| Layer | Technology |
+|---|---|
+| Framework | [TanStack Start](https://tanstack.com/start) v1 (React 19, file-based routing, SSR + server functions) |
+| Build | Vite 8, Nitro |
+| Styling | Tailwind CSS v4, custom design tokens (OKLCH), Radix UI / shadcn/ui components |
+| AI | Lovable AI Gateway (`/v1/chat/completions`) with a large language model |
+| Auth & data | Lovable Cloud — email/password + Google sign-in, row-level security so each user only sees their own work |
+| PDF | jsPDF |
+| Motion | CSS keyframe animations, IntersectionObserver, lazy-loaded `<video>` backgrounds |
+| Hosting | Vercel (`vercel.json`) · Netlify (`netlify.toml`) · Lovable |
 
-- [Node.js](https://nodejs.org/) (v18 or later)
-- npm or yarn
-- An API key for your AI provider
+---
 
-### Installation
+## 🚀 Getting started
+
+**Prerequisites:** Node.js 20+ and npm.
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
+# 1. Clone this repository (use the green "Code" button on GitHub)
+cd easy-assign
 
-# 2. Move into the project folder
-cd your-repo-name
-
-# 3. Install dependencies
+# 2. Install dependencies
 npm install
 ```
 
-### Environment Variables
-
-Create a `.env` file in the root directory:
+Create a `.env` file in the project root:
 
 ```env
-API_KEY=your_api_key_here
+VITE_SUPABASE_URL=your_backend_url
+VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
+VITE_SUPABASE_PROJECT_ID=your_project_id
+LOVABLE_API_KEY=your_ai_gateway_key
 ```
 
-> ⚠️ Never commit your `.env` file or share your API key publicly.
-
-### Run Locally
+The first three come from the backend of this project (Lovable Cloud → your project's settings), and `LOVABLE_API_KEY` is the key that lets the app call the AI model. The easiest way to get a working copy is to open this project in [Lovable](https://lovable.dev) — the backend, auth and AI key are wired automatically there, and the code syncs to GitHub.
 
 ```bash
-npm run dev
-```
+# 3. Run locally
+npm run dev          # http://localhost:8080
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Build for Production
-
-```bash
+# 4. Production build
 npm run build
-npm start
 ```
+
+> ⚠️ Never commit your `.env` file or share your keys publicly.
 
 ---
 
-## 📖 How to Use
+## 📖 How to use
 
-1. Open the app.
-2. Enter your **assignment topic** or question.
-3. Select the subject, length, and academic level.
-4. Click **Generate**.
-5. Review, edit, and copy or download your assignment.
+1. Open the app and **Sign up** (check your inbox and confirm the email, then log in).
+2. Type your topic — e.g. *"Impact of climate change on coastal cities of South Asia"*.
+3. Choose category, language, tone, typeface and template; set the length with the slider.
+4. Click **Write assignment** and wait for the full document to appear.
+5. **Save to account** (it lands in My library), **Download PDF**, or **Copy**.
 
 ---
 
-## 📁 Project Structure
+## 📁 Project structure
 
 ```
-├── public/          # Static assets
-├── src/             # Source code
-│   ├── components/  # UI components
-│   ├── pages/       # App pages
-│   └── styles/      # Stylesheets
-├── .env             # Environment variables (not committed)
-├── package.json
-└── README.md
+├── src/
+│   ├── routes/            # pages: index, auth, library
+│   ├── components/        # generator, site nav, background video, UI kit
+│   ├── lib/               # assignment logic, AI prompt + server call, PDF export, templates
+│   ├── hooks/             # auth session, scroll reveal
+│   ├── integrations/      # backend client + auth middleware
+│   ├── assets/            # media pointers used by the pages
+│   └── styles.css         # Tailwind v4 theme, tokens, animations
+├── supabase/migrations/   # database schema + security policies
+├── public/screenshots/    # images used in this README
+├── vercel.json            # Vercel config (includes a required media rewrite)
+├── netlify.toml           # Netlify config
+└── DEPLOYMENT.md          # full hosting guide
 ```
-
-> Adjust this to match your actual folder structure.
 
 ---
 
 ## 🌐 Deployment
 
-This project is deployed on **Vercel**.
+- **Vercel** — import the GitHub repository; `vercel.json` is already set up. It contains a **required rewrite** for media assets (`/__l5e/assets-v1/*`) — do not remove it, or the background videos will 404. Add the environment variables listed above, and redeploy after every push.
+- **Netlify** — build command `npm run build`, publish directory `dist/client` (already in `netlify.toml`).
+- **Lovable** — one click, zero configuration: the backend, AI key and media all work out of the box.
+- Details for all hosts: [DEPLOYMENT.md](./DEPLOYMENT.md)
 
-1. Push your code to GitHub.
-2. Import the repository in [Vercel](https://vercel.com/).
-3. Add your environment variables in the project settings.
-4. Click **Deploy**.
+---
+
+## 📌 Good to know
+
+- **Google sign-in** works on Lovable-hosted URLs. On a custom domain (Vercel/Netlify), use email + password, or register your own Google OAuth credentials in the backend's auth settings.
+- **New accounts** receive a confirmation email — open it and click the link before logging in. There is a *Resend confirmation email* button if it doesn't arrive.
+- The AI writing step needs `LOVABLE_API_KEY`; without it the app still runs, but assignment generation will fail.
 
 ---
 
 ## ⚠️ Disclaimer
 
-This tool is meant to assist with learning, brainstorming, and drafting. Always review and verify the generated content, add your own understanding, and follow your institution's academic integrity policies.
+This tool is for drafting, learning and brainstorming. Always read the output, add your own understanding and sources, and follow your institution's academic-integrity rules. Submitting generated work as your own is your responsibility.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -m "Add your feature"`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Open a Pull Request
+Fork it, create a branch (`git checkout -b feature/your-feature`), commit, push, and open a pull request.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+[MIT](LICENSE)
 
 ---
 
 ## 👩‍💻 Author
 
-Made with ❤️ by **Rubab Shaukat**
+Made with ❤️ by **Rubab Shaukat** — for students who run out of nights, not ideas.
 
----
-
-⭐ If you like this project, don't forget to give it a star!
+⭐ If this helped you, give the repository a star.
